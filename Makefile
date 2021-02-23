@@ -6,7 +6,7 @@
 #    By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/13 10:45:54 by oel-yous          #+#    #+#              #
-#    Updated: 2021/02/22 17:24:42 by oel-yous         ###   ########.fr        #
+#    Updated: 2021/02/23 11:09:07 by oel-yous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = ft_strlen.s
+SRC = ft_strcpy.s
 
 TEST = test
 
