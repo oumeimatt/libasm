@@ -5,10 +5,10 @@ section     .text
 _ft_read:
 	mov 	rax, 0x2000003
 	syscall
-	jc  	_failed
+	jc  	_failedd
 	ret
 
-_failed:
+_failedd:
 	push 	rax
 	call 	___error
 	pop		rdi

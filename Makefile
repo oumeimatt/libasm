@@ -6,7 +6,7 @@
 #    By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/13 10:45:54 by oel-yous          #+#    #+#              #
-#    Updated: 2021/02/23 15:58:52 by oel-yous         ###   ########.fr        #
+#    Updated: 2021/02/24 17:24:40 by oel-yous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,18 +16,23 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = ft_read.s
+SRC = ft_write.s ft_strlen.s ft_read.s ft_strcpy.s ft_strcmp.s ft_strdup.s
 
 TEST = test
 
-OBJ = $(SRC:.s=.o)
+OBJ = $(SRC:.s=.o) 
 
 NA = nasm -f macho64
 
 all: $(NAME)
 
-$(OBJ): $(OBJ)
-	$(NA) $(SRC)
+$(OBJ): $(SRC)
+	$(NA) ft_write.s 
+	$(NA) ft_strlen.s
+	$(NA) ft_read.s
+	$(NA) ft_strcpy.s
+	$(NA) ft_strcmp.s
+	$(NA) ft_strdup.s
 
 $(NAME): $(OBJ)
 	ar rc $(NAME) $(OBJ)
