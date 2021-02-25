@@ -89,21 +89,22 @@ int		read_test(char *str)
 	return (1);
 }
 
-// int		strdup_test(char *str)
-// {
-// 	char	*str1;
-// 	char	*str2;
+int		strdup_test(char *str)
+{
+	char	*str1;
+	char	*str2;
 
-// 	str1 = ft_strdup(str);
-// 	str2 = strdup(str);
-// 	if (!strcmp(str1, str2))
-// 		printf("" GREEN "[OK] " RESET "");
-// 	else
-// 		printf("" RED "[KO] " RESET "");
-// 	free(str1);
-// 	free(str2);
-// 	return (1);
-// }
+	str1 = ft_strdup(str);
+	str2 = strdup(str);
+	printf("%d\n", strcmp(strdup(str), ft_strdup(str)));
+	if (!strcmp(str1, str2))
+		printf("" GREEN "[OK] " RESET "");
+	else
+		printf("" RED "[KO] " RESET "");
+	free(str1);
+	free(str2);
+	return (1);
+}
 
 int		main(void)
 {
@@ -124,7 +125,7 @@ int		main(void)
 	*/
 	printf("%-12s :  ", "ft_strcpy.s");
 	strcpy_test("abc");
-	strcpy_test("");
+	strcpy_test("1111");
 	strcpy_test("allo mon gars");
 	strcpy_test("allo \0 mon gars");
 	strcpy_test("ca fou koi allo");
@@ -159,9 +160,9 @@ int		main(void)
 	write_test("test allo \0 what");
 	printf("\n\n");
 
-	/*
-	** FT_READ
-	*/
+	// /*
+	// ** FT_READ
+	// */
 
 	printf("%-12s :  ", "ft_read.s");
 	read_test("allo");
@@ -173,13 +174,15 @@ int		main(void)
 
 	/*
 	** FT_STRDUP
-	// */
-	// printf("%-12s :  ", "ft_strdup.s");
-	// strdup_test("allo");
-	// strdup_test("allo wtf");
-	// strdup_test("");
-	// strdup_test("allo \0 mon bars");
-	// strdup_test("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tellus metus, finibus quis sagittis quis, volutpat a justo. Nunc et pellentesque quam. Fusce aliquam aliquam libero, sed pulvinar nullam.");
-	// printf("\n");
+	*/
+	printf("%-12s :  ", "ft_strdup.s");
+	strdup_test("allo");
+	strdup_test("allo wtf");
+	strdup_test("");
+	strdup_test("allo \0 mon bars");
+	strdup_test("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tellus metus, finibus quis sagittis quis, volutpat a justo. Nunc et pellentesque quam. Fusce aliquam aliquam libero, sed pulvinar nullam.");
+	printf("\n");
+
+	// printf("%d\n", strcmp(strdup(""), ft_strdup("")));
 
 }

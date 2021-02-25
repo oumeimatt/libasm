@@ -1,15 +1,8 @@
 global      _ft_strcmp
 section     .text
 
-
 _ft_strcmp:
 	xor rcx, rcx
-	mov rax, 0
-	cmp byte[rdi + rcx], byte 0
-	je 	_null
-	cmp byte[rsi + rcx], byte 0
-	je 	_ft_strcmp_end_2
-	jmp _loop
 
 _loop:
 	mov dl, byte[rdi + rcx]
@@ -38,9 +31,11 @@ _null:
 _ft_strcmp_end_1:
 	mov rax, -1
 	ret
+
 _ft_strcmp_end_2:
 	mov rax, 1
 	ret
+
 _equal:
 	mov rax, 0
 	ret

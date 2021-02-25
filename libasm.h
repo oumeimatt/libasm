@@ -6,7 +6,7 @@
 /*   By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:41:00 by oel-yous          #+#    #+#             */
-/*   Updated: 2021/02/24 16:15:47 by oel-yous         ###   ########.fr       */
+/*   Updated: 2021/02/25 10:02:27 by oel-yous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ char    *ft_strcpy(char * dst, const char * src);
 size_t  ft_write(int fildes, const void *buf, size_t nbyte);
 size_t  ft_read(int fildes, void *buf, size_t nbyte);
 int     ft_strcmp(char *str1, char *str2);
+char	*ft_strdup(const char *s1);
 
 #endif
