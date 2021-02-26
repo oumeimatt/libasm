@@ -6,7 +6,7 @@
 #    By: oel-yous <oel-yous@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/13 10:45:54 by oel-yous          #+#    #+#              #
-#    Updated: 2021/02/25 11:30:39 by oel-yous         ###   ########.fr        #
+#    Updated: 2021/02/26 10:10:36 by oel-yous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,5 +46,5 @@ fclean: clean
 re: fclean all
 
 test:$(NAME)
-	$(CC) $(CFLAGS) -L. -lasm -o $(TEST) main.c
-	./$(TEST) < Makefile
+	$(CC) $(CFLAGS) $(NAME) main.c -o $(TEST)
+	./$(TEST) 

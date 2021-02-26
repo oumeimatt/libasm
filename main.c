@@ -1,188 +1,108 @@
+
 #include "libasm.h"
-
-int		strlen_test(char *str)
+void    test_strcmp(void)
 {
-	int		ret1;
-	int		ret2;
-
-	ret1 = ft_strlen(str);
-	ret2 = strlen(str);
-	if (ret1 == ret2)
-		printf("" GREEN "[OK] " RESET "");
-	else
-		printf("" RED "[KO] " RESET "");
-	return (1);
+    printf("\033[0;32mft_strcmp TEST\033[0m\n");
+    char *s1 = ""; char *s2 = "";
+    printf("strcmp : %d\n", strcmp(s1, s2));
+    printf("ft_strcmp : %d\n", ft_strcmp(s1, s2));
+    printf("strcmp : %d\n", strcmp("", ""));
+    printf("ft_strcmp : %d\n", ft_strcmp("", ""));
+    printf("strcmp : %d\n", strcmp("123", "123"));
+    printf("ft_strcmp : %d\n", ft_strcmp("123", "123"));
+    printf("------------------------\n");
+    char *m = "testt" ; char *m1 = "test";
+    printf("ft_strcmp : %d\n", ft_strcmp(m, m1));
+    printf("strcmp : %d\n", strcmp(m, m1));
+    m = "TestT"; m1 = "test";
+    printf("ft_strcmp : %d\n", ft_strcmp(m, m1));
+    printf("strcmp : %d\n", strcmp(m, m1));
+    m = "Te\0stT"; m1 = "test";
+    printf("ft_strcmp : %d\n", ft_strcmp(m, m1));
+    printf("strcmp : %d\n", strcmp(m, m1));
+    m = "\200"; m1 = "\0";
+    printf("ft_strcmp : %d\n", ft_strcmp(m, m1));
+    printf("strcmp : %d\n\n", strcmp(m, m1));
 }
-
-int		strcpy_test(char *src)
+ void    test_write(void)
 {
-	char	dest1[BUFFER_SIZE];
-	char	dest2[BUFFER_SIZE];
-
-	bzero(dest1, BUFFER_SIZE);
-	bzero(dest2, BUFFER_SIZE);
-	ft_strcpy(dest1, src);
-	strcpy(dest2, src);
-	if (!strcmp(dest1, dest2))
-		printf("" GREEN "[OK] " RESET "");
-	else
-		printf("" RED "[KO] " RESET "");
-	return (1);
+    printf("\033[0;32mft_write TEST\033[0m\n");
+    int fd = open("file.txt", O_RDWR | O_CREAT);
+    write(1, "write : hello\n", 14);
+    printf("%zd\n", ft_write('c', "ft_write : hello\n\n", 18));
+    write(0, "write : hello\n", 14);
+    ft_write(0, "ft_write : hello\n\n", 18);
+    write(fd, "write : hello\n", 14);
+    ft_write(fd, "ft_write : hello\n\n", 18);
+    if ((write(-4, "buf", 6) == -1))
+        printf("write error : \033[1;31mERROR: %s\033[0m\n", strerror(errno));
+    if ((ft_write(-4, "buf", 6) == -1))
+        printf("ft_write error : \033[1;31mERROR: %s\033[0m\n\n", strerror(errno));
+    if ((write(0, NULL, 6) == -1))
+        printf("write error : \033[1;31mERROR: %s\033[0m\n", strerror(errno));
+    if ((ft_write(0, NULL, 6) == -1))
+        printf("ft_write error : \033[1;31mERROR: %s\033[0m\n\n", strerror(errno));
 }
-
-int		strcmp_test(char *s1, char *s2)
+void    test_copy(void)
 {
-	int		ret1;
-	int		ret2;
-
-	ret1 = strcmp(s1, s2);
-	ret2 = ft_strcmp(s1, s2);
-	if ((ret1 > 0 && ret2 > 0) || (ret1 < 0 && ret2 < 0)
-	|| (ret1 == 0 && ret2 == 0))
-		printf("" GREEN "[OK] " RESET "");
-	else
-		printf("" RED "[KO] " RESET "");
-	return (1);
+    char dst1[1000];
+    char dst2[1000];
+    printf("\033[0;31mMandatory TEST\033[0m\n");
+    printf("\033[0;32mft_strcpy TEST\033[0m\n");
+    printf("strcpy    : |%s| , |%s| \n", strcpy(dst1, ""),dst1);
+    printf("ft_strcpy : |%s| , |%s| \n\n", ft_strcpy(dst2, ""),dst2);
+    printf("strcpy    : |%s| , |%s| \n", strcpy(dst1, "Lorem Ipsum is simply"),dst1);
+    printf("ft_strcpy : |%s| , |%s| \n\n", ft_strcpy(dst2, "Lorem Ipsum is simply"),dst2);
 }
-
-int		write_test(char *str)
+void    test_read(void)
 {
-	int		ft_write_pipe[2];
-	char	buf[BUFFER_SIZE];
-	int		ret;
-
-	bzero(buf, BUFFER_SIZE);
-	if (pipe(ft_write_pipe) < 0)
-		exit(EXIT_FAILURE);
-	fcntl(ft_write_pipe[0], F_SETFL, O_NONBLOCK);
-	write(ft_write_pipe[1], str, strlen(str));
-	ret = read(ft_write_pipe[0], buf, BUFFER_SIZE);
-	buf[ret] = '\0';
-	if (!strcmp(buf, str))
-		printf("" GREEN "[OK] " RESET "");
-	else
-		printf("" RED "[KO] " RESET "");
-	close(ft_write_pipe[1]);
-	close(ft_write_pipe[0]);
-	return (1);
+    printf("\033[0;32mft_read TEST\033[0m\n");
+    char buf[20];
+    bzero(buf, 20);
+    char buf2[20];
+    bzero(buf2, 20);
+    printf("read : %zd \n", read(0, buf, 20));
+    printf("ft_read : %zd \n\n", ft_read(0, buf2, 20));
+    if ((read(-4, buf, 6) == -1))
+        printf("read error : \033[1;31mERROR: %s\033[0m\n", strerror(errno));
+    if ((ft_read(-4, buf2, 6) == -1))
+        printf("ft_read error : \033[1;31mERROR: %s\033[0m\n", strerror(errno));
 }
-
-int		read_test(char *str)
+void    test_dup(void)
 {
-	int		ft_read_pipe[2];
-	char	buf[BUFFER_SIZE];
-	int		ret;
-
-	bzero(buf, BUFFER_SIZE);
-	if (pipe(ft_read_pipe) < 0)
-		exit(EXIT_FAILURE);
-	fcntl(ft_read_pipe[0], F_SETFL, O_NONBLOCK);
-	write(ft_read_pipe[1], str, strlen(str));
-	ret = ft_read(ft_read_pipe[0], buf, BUFFER_SIZE);
-	buf[ret] = '\0';
-	if (!strcmp(buf, str))
-		printf("" GREEN "[OK] " RESET "");
-	else
-		printf("" RED "[KO] " RESET "");
-	close(ft_read_pipe[1]);
-	close(ft_read_pipe[0]);
-	return (1);
+    printf("\033[0;32mft_strdup TEST\033[0m\n\n");
+    char *sdup = "There are many variations of passages of Lorem Ipsum available";
+    printf("strdup    : |%s| \n", strdup(sdup));
+    printf("ft_strdup : |%s| \n\n", ft_strdup(sdup));
+    printf("strdup    : |%s| \n", strdup(""));
+    printf("ft_strdup : |%s| \n\n", ft_strdup(""));
+    printf("strdup    : |%s| \n", strdup("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."));
+    printf("ft_strdup : |%s| \n\n", ft_strdup("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."));
 }
-
-int		strdup_test(char *str)
+void    test_len(void)
 {
-	char	*str1;
-	char	*str2;
-
-	str1 = ft_strdup(str);
-	str2 = strdup(str);
-	printf("%d\n", strcmp(strdup(str), ft_strdup(str)));
-	if (!strcmp(str1, str2))
-		printf("" GREEN "[OK] " RESET "");
-	else
-		printf("" RED "[KO] " RESET "");
-	free(str1);
-	free(str2);
-	return (1);
+    printf("\033[0;32mft_strlen TEST\033[0m\n");
+    printf("ft_strlen : %lu\n", ft_strlen("libsam"));
+    printf("strlen : %lu\n\n", strlen("libasm"));
+    printf("ft_strlen : %lu\n", ft_strlen(""));
+    printf("strlen : %lu\n\n", strlen(""));
+    printf("strlen : %lu\n", ft_strlen("hi world"));
+    printf("strlen : %lu\n\n", strlen("hi world"));
 }
-
-int		main(void)
+int     main()
 {
-	/*
-	** FT_STRLEN
-	*/
-	printf("%-12s :  ", "ft_strlen.s");
-	strlen_test("allo");
-	strlen_test("");
-	strlen_test("on test tout ce qu'on peut mon gars");
-	strlen_test("allo \0 mon gars");
-	strlen_test("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tellus metus, finibus quis sagittis quis, volutpat a justo. Nunc et pellentesque quam. Fusce aliquam aliquam libero, sed pulvinar nullam.");
-	strlen_test("        ");
-	printf("\n\n");
-
-	/*
-	** FT_STRCPY
-	*/
-	printf("%-12s :  ", "ft_strcpy.s");
-	strcpy_test("abc");
-	strcpy_test("1111");
-	strcpy_test("allo mon gars");
-	strcpy_test("allo \0 mon gars");
-	strcpy_test("ca fou koi allo");
-	strcpy_test("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tellus metus, finibus quis sagittis quis, volutpat a justo. Nunc et pellentesque quam. Fusce aliquam aliquam libero, sed pulvinar nullam.");
-	strcpy_test("        ");
-	printf("\n\n");
-
-	/*
-	** FT_STRCMP
-	*/
-	printf("%-12s :  ", "ft_strcmp.s");
-	strcmp_test("allo", "allo");
-	strcmp_test("abcdef", "abcdef");
-	strcmp_test("", "wtf");
-	strcmp_test("on test tout ce qu'on peut mon gars", "   ");
-	strcmp_test("", "");
-	strcmp_test("beta", "");
-	strcmp_test("te\0", "\0");
-	strcmp_test("\xff\xff", "\xff\xff");
-	strcmp_test("\xff\x80", "\xff\x00");
-	strcmp_test("\xff\xfe", "\xff");
-	strcmp_test("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tellus metus, finibus quis sagittis quis, volutpat a justo. Nunc et pellentesque quam. Fusce aliquam aliquam libero, ed pulvinar nullam.", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tellus metus, finibus quis sagittis quis, volutpat a justo. Nunc et pellentesque quam. Fusce aliquam aliquam libero, sed pulvinar nullam.");
-	printf("\n\n");
-
-	/*
-	** FT_WRITE
-	*/
-	printf("%-12s :  ", "ft_write.s");
-	write_test("");
-	write_test("testjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
-	write_test("test allo");
-	write_test("test allo \0 what");
-	printf("\n\n");
-
-	// /*
-	// ** FT_READ
-	// */
-
-	printf("%-12s :  ", "ft_read.s");
-	read_test("allo");
-	read_test("allo mon gars");
-	read_test("allo \0 mon bars");
-	read_test("");
-	read_test("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tellus metus, finibus quis sagittis quis, volutpat a justo. Nunc et pellentesque quam. Fusce aliquam aliquam libero, sed pulvinar nullam.");
-	printf("\n\n");
-
-	/*
-	** FT_STRDUP
-	*/
-	printf("%-12s :  ", "ft_strdup.s");
-	strdup_test("allo");
-	strdup_test("allo wtf");
-	strdup_test("");
-	strdup_test("allo \0 mon bars");
-	strdup_test("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tellus metus, finibus quis sagittis quis, volutpat a justo. Nunc et pellentesque quam. Fusce aliquam aliquam libero, sed pulvinar nullam.");
-	printf("\n");
-
-	// printf("%d\n", strcmp(strdup(""), ft_strdup("")));
-
+    test_copy();
+    printf("------------------\n");
+    test_write();
+    printf("------------------\n");
+    test_read();
+    printf("------------------\n");
+    test_dup();
+    printf("------------------\n");
+    test_len();
+    printf("----------------\n");
+    test_copy();
+    printf("----------------\n");
+    test_strcmp();
+    return 0;
 }

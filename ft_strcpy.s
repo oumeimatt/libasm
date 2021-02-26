@@ -5,13 +5,12 @@ _ft_strcpy:
     xor rcx, rcx
     cmp byte [rsi + rcx], byte 0
     je _ret
-    mov rax, 0
     jne _strcpy_loop
 
 _strcpy_loop:
 
-    mov r8b, byte[rsi + rcx]
-    mov byte[rdi + rcx], r8b
+    mov dl, byte[rsi + rcx]
+    mov byte[rdi + rcx], dl
     cmp byte [rsi + rcx], byte 0
     je _exit
     inc rcx
@@ -20,6 +19,7 @@ _strcpy_loop:
 _exit:
     mov rax, rdi
     jmp _ret
+
 _ret:
     mov byte[rdi + rcx], 0
     mov rax, rdi
